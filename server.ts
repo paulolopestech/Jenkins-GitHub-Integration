@@ -4,6 +4,7 @@ const app = express();
 
 app.get('/', (req, res) => {
     res.send('Hello from express and typescript');
+    console.log('UHUL!')
 });
 
 
