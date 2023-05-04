@@ -35,8 +35,8 @@ jobs:
         script: |
           cd ~/hello_api
           git init
-          git remote add cicd git@github.com:paulolopestech/CI-CD.git
-          git stash
+          git remote add origin git@github.com:paulolopestech/affafae.git
+          git branch -M main
           git pull origin main
               
     - name: Remove Github Actions IP from security group
