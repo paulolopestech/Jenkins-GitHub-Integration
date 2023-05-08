@@ -1,24 +1,42 @@
 pipeline {
     agent any
+    options {
+        skipDefaultCheckout true
+    }
 
     stages {
-        stage('hello') {
+        stage('Clone Repository') {
             steps {
-                sh 'echo Hello Jenkins!'
+                sh 'echo clonning repo'
             }
         }
-        
-        // stage ('Build Image') {
-        //     steps {
-        //         script {
-        //             dockerapp = docker.build("paulolopestech/api:${env.BUILD_ID}", '-f ./Dockerfile ./') { // construction of docker image
-        //                 // envia imagem para dockerhub
-        //                 dockerapp.push('latest')
-        //                 dockerapp.push("${env.BUILD_ID}")
-        //             }
 
-        //         }
-        //     }
-        // }
+        stage('Build') {
+            steps {
+                sh 'echo build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'echo test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'echo deploy'
+            }
+        }
+    }
+
+    post {
+        always {
+            githubStatus context: 'continuous-integration/jenkins', state: 'success'
+            if (env.CHANGE_ID) {
+                githubComment message: "The pipeline completed successfully!"
+                githubLabel labels: ['approved']
+            }
+        }
     }
 }

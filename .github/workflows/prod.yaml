@@ -28,6 +28,15 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
     
+    - uses: actions/checkout@v2
+    - name: Jenkins pipeline with the static image
+      id: jenkins_pipeline_image
+      uses:
+        jenkinsci/jfr-static-image-action@master
+      with:
+        command: run
+        jenkinsfile: Jenkinsfile
+    
     # - uses: actions/checkout@v2
     
     # - uses: actions/setup-node@v3
