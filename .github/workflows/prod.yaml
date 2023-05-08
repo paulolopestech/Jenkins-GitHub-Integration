@@ -28,31 +28,48 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
     
-    - uses: actions/checkout@v2
+    # - uses: actions/checkout@v2
     
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
+    # - uses: actions/setup-node@v3
+    #   with:
+    #     node-version: 16
     
-    - uses: jenkinsci/jfr-setup-action@master
+    # - uses: jenkinsci/jfr-setup-action@master
 
-    - uses:
-        jenkinsci/jfr-container-action@master
-      with:
-        command: run
-        jenkinsfile: Jenkinsfile
-        pluginstxt: plugins.txt
-        jcasc: jcasc.yml
+    # - uses:
+    #     jenkinsci/jfr-container-action@master
+    #   with:
+    #     command: run
+    #     jenkinsfile: Jenkinsfile
+    #     pluginstxt: plugins.txt
+    #     jcasc: jcasc.yml
 
-    - name: Deploy to prod server
-      uses: appleboy/ssh-action@master
-      with:
-        host: 18.228.117.134
-        username: ubuntu
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          cd ~
-          git clone git@github.com:paulolopestech/CI-CD.git || cd ~/CI-CD && git pull
+    # - name: Pipeline teste
+    #   on: [push]
+    #   jobs:
+    #     jenkins-container-pipeline:
+    #       runs-on: ubuntu-latest
+    #       container:
+    #         image: ghcr.io/jenkinsci/jenkinsfile-runner:master
+    #       steps:
+    #         - uses: actions/checkout@v2
+    #         - uses:
+    #             jenkinsci/jfr-container-action@master
+    #           with:
+    #             command: run
+    #             jenkinsfile: Jenkinsfile
+    #             pluginstxt: plugins.txt
+    #             jcasc: jcasc.yml
+
+    # - name: Deploy to prod server
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: 52.67.4.129
+    #     username: ubuntu
+    #     key: ${{ secrets.SSH_KEY }}
+    #     script: |
+    #       cd ~
+    #       git clone git@github.com:paulolopestech/CI-CD.git || cd ~/CI-CD && git pull
               
     - name: Remove Github Actions IP from security group
       run: |
