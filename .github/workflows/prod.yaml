@@ -8,8 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-20.04
-    container:
-      image: ghcr.io/jenkinsci/jenkinsfile-runner:master
+    # container:
+    #   image: ghcr.io/jenkinsci/jenkinsfile-runner:master
 
     steps:
     - name: 🔎 Set GitHub Actions IP to GITHUB_ENV
