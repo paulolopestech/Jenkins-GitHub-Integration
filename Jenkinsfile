@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                sh 'echo clonning repository'
+                sh 'echo clonning repo'
             }
         }
 
@@ -33,8 +33,10 @@ pipeline {
     post {
         always {
             githubStatus context: 'continuous-integration/jenkins', state: 'success'
-            githubComment message: "The pipeline completed successfully!"
-            githubLabel labels: ['approved']
+            if (env.CHANGE_ID) {
+                githubComment message: "The pipeline completed successfully!"
+                githubLabel labels: ['approved']
+            }
         }
     }
 }
