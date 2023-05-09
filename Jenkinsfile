@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                sh 'echo clonning repo lets go'
+                sh 'echo clonning repo'
             }
         }
 
