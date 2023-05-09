@@ -1,42 +1,42 @@
+void setBuildStatus(String message, String context, String state) {
+  // add a Github access token as a global 'secret text' credential on Jenkins with the id 'github-commit-status-token'
+    withCredentials([string(credentialsId: 'github-commit-status-token', variable: 'TOKEN')]) {
+      // 'set -x' for debugging. Don't worry the access token won't be actually logged
+      // Also, the sh command actually executed is not properly logged, it will be further escaped when written to the log
+        sh """
+            set -x
+            curl \"https://api.github.com/repos/org/repo/statuses/$GIT_COMMIT?access_token=$TOKEN\" \
+                -H \"Content-Type: application/json\" \
+                -X POST \
+                -d \"{\\\"description\\\": \\\"$message\\\", \\\"state\\\": \\\"$state\\\", \\\"context\\\": \\\"$context\\\", \\\"target_url\\\": \\\"$BUILD_URL\\\"}\"
+        """
+    } 
+}
+
 pipeline {
     agent any
-    options {
-        skipDefaultCheckout true
-    }
-
     stages {
-        stage('Clone Repository') {
+        stage('Stage') {
             steps {
-                sh 'echo clonning repo'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'echo build'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'echo test'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh 'echo deploy'
-            }
-        }
-    }
-
-    post {
-        always {
-            githubStatus context: 'continuous-integration/jenkins', state: 'success'
-            if (env.CHANGE_ID) {
-                githubComment message: "The pipeline completed successfully!"
-                githubLabel labels: ['approved']
+                setBuildStatus("Compiling", "compile", "pending");
+                script {
+                    try {
+                        // do the build here
+                        setBuildStatus("Build complete", "compile", "success");
+                    } catch (err) {
+                        setBuildStatus("Failed", "pl-compile", "failure");
+                        throw err
+                    }
+                }
             }
         }
     }
 }
+
+// curl -L \
+//   -X POST \
+//   -H "Accept: application/vnd.github+json" \
+//   -H "Authorization: Bearer <YOUR-TOKEN>"\
+//   -H "X-GitHub-Api-Version: 2022-11-28" \
+//   https://api.github.com/repos/OWNER/REPO/statuses/SHA \
+//   -d '{"state":"success","target_url":"https://example.com/build/status","description":"The build succeeded!","context":"continuous-integration/jenkins"}'
