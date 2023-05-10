@@ -1,42 +1,6 @@
-pipeline {
-    agent any
-    options {
-        skipDefaultCheckout true
-    }
+properties([pipelineTriggers([gitHubPush()])])
 
-    stages {
-        stage('Clone Repository') {
-            steps {
-                sh 'echo clonning repo'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'echo build'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'echo test'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh 'echo deploy'
-            }
-        }
-    }
-
-    post {
-        always {
-            githubStatus context: 'continuous-integration/jenkins', state: 'success'
-            if (env.CHANGE_ID) {
-                githubComment message: "The pipeline completed successfully!"
-                githubLabel labels: ['approved']
-            }
-        }
-    }
+node {
+    git url: '', branch: 'main'
+    step([$class: 'GitHubCommitStatusSetter', contextSource: [$class: 'ManualyEnteredCommitContextSource', context: 'pipeline update'], statusResultSource: [$class: 'ConditionalStatusResultSource', results: [[$class: 'AnyBuildResult', message:'Building Pipeline Job', state: 'SUCCESS']]]])
 }
