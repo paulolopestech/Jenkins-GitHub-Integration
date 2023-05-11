@@ -9,7 +9,7 @@
 //     echo 'Initializing PipelineSteps.'
 // }
 
-initialize()
+// initialize()
 
 pipeline {
     agent any
