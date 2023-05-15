@@ -4,16 +4,20 @@ pipeline {
         stage('Stage') {
             steps {
                 echo 'Pipeline'
+                script {
+                    sh 'node --version'
+                    sh 'npm -v'
+                }
             }
         }
 
-        stage('Installing nodeJs dependencies') {
-			steps {
-				script {
-                sh 'npm install --verbose'
-				}
-			}
-		}
+        // stage('Installing nodeJs dependencies') {
+		// 	steps {
+		// 		script {
+        //         sh 'npm install --verbose'
+		// 		}
+		// 	}
+		// }
 
         // stage('Unit Tests') {
 		// 	steps {
