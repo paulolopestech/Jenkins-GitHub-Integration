@@ -1,0 +1,40 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "HEXAGONAL ARCHITECTURE EXAMPLE API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/helloworld": {
+      "post": {
+        "description": "Insert a message into database",
+        "parameters": [ 
+           {
+             "name": "message",
+             "in": "body",
+             "description": "A example message",
+             "required": true,
+             "type": "string"
+           }
+         ],
+        "responses": {
+          "200": {
+            "description": "The message saved"
+          },
+          "400": {
+            "description": "Input parameter errors"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

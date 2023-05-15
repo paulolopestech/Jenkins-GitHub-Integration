@@ -1,16 +1,3 @@
-// properties([pipelineTriggers([gitHubPush()])])
-
-// node {
-//     git url: '', branch: 'main'
-//     step([$class: 'GitHubCommitStatusSetter', contextSource: [$class: 'ManualyEnteredCommitContextSource', context: 'pipeline update'], statusResultSource: [$class: 'ConditionalStatusResultSource', results: [[$class: 'AnyBuildResult', message:'Building Pipeline Job', state: 'SUCCESS']]]])
-// }
-
-// void initialize() {
-//     echo 'Initializing PipelineSteps.'
-// }
-
-// initialize()
-
 pipeline {
     agent any
     stages {
@@ -19,6 +6,38 @@ pipeline {
                 echo 'Pipeline'
             }
         }
+
+        stage('Unit Tests') {
+			steps {
+				script {
+				sh 'npm i'
+				sh 'npm run test'
+				}
+			}
+			post {
+				always {
+				step([$class: 'CoberturaPublisher', coberturaReportFile: 'output/coverage/jest/coverage.xml', lineCoverageTargets: '95, 95, 50'])
+				}
+			}
+		}
+
+        stage("killing old container") {
+			steps {
+				sh 'docker stop library || true && docker rm library || true && docker rmi library || true'
+			}
+		}
+
+		stage("build") {
+			steps {
+				sh 'docker build -t library .'
+			}
+		}
+
+        stage("run") {
+			steps {
+				sh 'docker-compose up -d --build'
+			}
+		}
     }
 
     post{
