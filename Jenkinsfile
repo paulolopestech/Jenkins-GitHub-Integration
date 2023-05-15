@@ -1,38 +1,36 @@
 pipeline {
     agent any
     stages {
-        stage('Stage') {
+        stage('Check tools') {
             steps {
                 echo 'Pipeline'
                 script {
                     sh 'node --version'
                     sh 'npm -v'
-                    sh 'ls'
-                    sh 'npm install'
                 }
             }
         }
 
-        // stage('Installing nodeJs dependencies') {
-		// 	steps {
-		// 		script {
-        //         sh 'npm install --verbose'
-		// 		}
-		// 	}
-		// }
+        stage('Installing nodeJs dependencies') {
+			steps {
+				script {
+                sh 'npm install --verbose'
+				}
+			}
+		}
 
-        // stage('Unit Tests') {
-		// 	steps {
-		// 		script {
-		// 		sh 'npm run test'
-		// 		}
-		// 	}
-		// 	post {
-		// 		always {
-		// 		step([$class: 'CoberturaPublisher', coberturaReportFile: 'output/coverage/jest/coverage.xml', lineCoverageTargets: '95, 95, 50'])
-		// 		}
-		// 	}
-		// }
+        stage('Unit Tests') {
+			steps {
+				script {
+				sh 'npm run test'
+				}
+			}
+			post {
+				always {
+				step([$class: 'CoberturaPublisher', coberturaReportFile: 'output/coverage/jest/coverage.xml', lineCoverageTargets: '95, 95, 50'])
+				}
+			}
+		}
 
         // stage("killing old container") {
 		// 	steps {
