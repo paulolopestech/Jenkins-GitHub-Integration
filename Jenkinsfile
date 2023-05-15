@@ -14,7 +14,9 @@ pipeline {
         stage('Installing nodeJs dependencies') {
 			steps {
 				script {
-                sh 'npm install --verbose'
+                sh 'rm -rf node_modules'
+                sh 'rm -rf package-lock.json'
+                sh 'npm install'
 				}
 			}
 		}
