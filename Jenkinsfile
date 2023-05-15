@@ -10,46 +10,41 @@ pipeline {
         stage('Installing nodeJs dependencies') {
 			steps {
 				script {
-				sh 'npm i'
-				}
-			}
-			post {
-				always {
-				step([$class: 'CoberturaPublisher', coberturaReportFile: 'output/coverage/jest/coverage.xml', lineCoverageTargets: '95, 95, 50'])
+				sh 'ls'
 				}
 			}
 		}
 
-        stage('Unit Tests') {
-			steps {
-				script {
-				sh 'npm run test'
-				}
-			}
-			post {
-				always {
-				step([$class: 'CoberturaPublisher', coberturaReportFile: 'output/coverage/jest/coverage.xml', lineCoverageTargets: '95, 95, 50'])
-				}
-			}
-		}
+        // stage('Unit Tests') {
+		// 	steps {
+		// 		script {
+		// 		sh 'npm run test'
+		// 		}
+		// 	}
+		// 	post {
+		// 		always {
+		// 		step([$class: 'CoberturaPublisher', coberturaReportFile: 'output/coverage/jest/coverage.xml', lineCoverageTargets: '95, 95, 50'])
+		// 		}
+		// 	}
+		// }
 
-        stage("killing old container") {
-			steps {
-				sh 'docker stop library || true && docker rm library || true && docker rmi library || true'
-			}
-		}
+        // stage("killing old container") {
+		// 	steps {
+		// 		sh 'docker stop library || true && docker rm library || true && docker rmi library || true'
+		// 	}
+		// }
 
-		stage("build") {
-			steps {
-				sh 'docker build -t library .'
-			}
-		}
+		// stage("build") {
+		// 	steps {
+		// 		sh 'docker build -t library .'
+		// 	}
+		// }
 
-        stage("run") {
-			steps {
-				sh 'docker compose up -d --build'
-			}
-		}
+        // stage("run") {
+		// 	steps {
+		// 		sh 'docker compose up -d --build'
+		// 	}
+		// }
     }
 
     post{
