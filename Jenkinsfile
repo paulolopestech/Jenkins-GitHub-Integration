@@ -8,6 +8,7 @@ pipeline {
                     sh 'node --version'
                     sh 'npm -v'
                     sh 'ls'
+                    sh 'npm install'
                 }
             }
         }
