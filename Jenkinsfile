@@ -7,10 +7,22 @@ pipeline {
             }
         }
 
-        stage('Unit Tests') {
+        stage('Installing nodeJs dependencies') {
 			steps {
 				script {
 				sh 'npm i'
+				}
+			}
+			post {
+				always {
+				step([$class: 'CoberturaPublisher', coberturaReportFile: 'output/coverage/jest/coverage.xml', lineCoverageTargets: '95, 95, 50'])
+				}
+			}
+		}
+
+        stage('Unit Tests') {
+			steps {
+				script {
 				sh 'npm run test'
 				}
 			}
@@ -35,7 +47,7 @@ pipeline {
 
         stage("run") {
 			steps {
-				sh 'docker-compose up -d --build'
+				sh 'docker compose up -d --build'
 			}
 		}
     }
