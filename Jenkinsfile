@@ -10,7 +10,10 @@ pipeline {
         stage('Installing nodeJs dependencies') {
 			steps {
 				script {
+                sh 'rm -rf node_modules'
 				sh 'ls'
+                sh 'npm i'
+                sh 'ls'
 				}
 			}
 		}
