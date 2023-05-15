@@ -12,7 +12,7 @@ pipeline {
 				script {
                 sh 'rm -rf node_modules'
 				sh 'ls'
-                sh 'npm i'
+                sh 'npm install'
                 sh 'ls'
 				}
 			}
