@@ -5,7 +5,7 @@ on:
   pull_request:
    types: [opened, synchronize]
 
-  print_title_of_pr:
+  info:
     runs-on: ubuntu-20.04
     steps:
     - name : Print Object of PR
