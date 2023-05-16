@@ -1,0 +1,61 @@
+name: get params
+
+on:
+  pull_request:
+   types: [opened, synchronize]
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+    - name : Print Object of PR
+      run: echo "The Object of your PR is ${{ github.event.pull_request }}"
+
+    - name : Print assignee
+      run: echo "Assignee is ${{ github.event.assignee }}"
+
+    - name : Print enterprise
+      run: echo "enterprise is ${{ github.event.enterprise }}"
+    
+    - name : Print installation
+      run: echo "installation is ${{ github.event.installation }}"
+
+    - name : Print PR number
+      run: echo "PR number is ${{ github.event.number }}"
+
+    - name : Print Organization
+      run: echo "Organization is ${{ github.event.organization }}"
+
+    - name : Print Repository
+      run: echo "Repository is ${{ github.event.repository }}"
+
+    - name : Print Sender
+      run: echo "Sender is ${{ github.event.sender }}"
+
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    
+    - name: WEB HOOK POST REQUEST
+      run: |
+        curl -X POST http://jenkinsDNS:8080/github-webhook/
+          -H "Accept: */*"
+          -H content-type: application/json
+          -H User-Agent: GitHub-Hookshot/87ca02f
+          -H X-GitHub-Delivery: 40223f80-f346-11ed-867f-464ec649efc2
+          -H X-GitHub-Event: pull_request
+          -H X-GitHub-Hook-ID: 413733004
+          -H X-GitHub-Hook-Installation-Target-ID: 638476158
+          -H X-GitHub-Hook-Installation-Target-Type: repository
+          -d '{
+            "action": "synchronize",
+            "after": ${{ github.event.after }},
+            "before": ${{ github.event.before }},
+            "enterprise": ${{ github.event.enterprise }},
+            "installation": ${{ github.event.installation }},
+            "number": ${{ github.event.number }},
+            "organization": ${{ github.event.organization }},
+            "pull_request": ${{ github.event.pull_request }},
+            "repository": ${{ github.event.repository }},
+            "sender": ${{ github.event.sender }},
+          }'
