@@ -1,0 +1,313 @@
+POST /payload HTTP/2
+
+Host: localhost:4567
+X-GitHub-Delivery: 72d3162e-cc78-11e3-81ab-4c9367dc0958
+X-Hub-Signature: sha1=7d38cdd689735b008b3c702edd92eea23791c5f6
+X-Hub-Signature-256: sha256=d57c68ca6f92289e6987922ff26938930f6e66a2d161ef06abdf1859230aa23c
+User-Agent: GitHub-Hookshot/044aadd
+Content-Type: application/json
+Content-Length: 6615
+X-GitHub-Event: issues
+
+{
+  "action": "opened",
+  "issue": {
+    "url": "https://api.github.com/repos/octocat/Hello-World/issues/1347",
+    "number": 1347,
+    ...
+  },
+  "repository" : {
+    "id": 1296269,
+    "full_name": "octocat/Hello-World",
+    "owner": {
+      "login": "octocat",
+      "id": 1,
+      ...
+    },
+    ...
+  },
+  "sender": {
+    "login": "octocat",
+    "id": 1,
+    ...
+  }
+}
+
+ #### PULL REQUEST
+
+ {
+  action: "assigned",
+  
+  assignee: Object || null,
+  
+  enterprise: Object, #An enterprise on GitHub.
+  
+  installation: "Object", # The GitHub App installation. This property is included when the event is configured for and sent to a GitHub App.
+  
+  number: 1, #The pull request number,
+  
+  organization: DasCoisas, # A github organization
+
+  pull_request: {
+    _links: {
+      comments: {
+        href: "...", #string
+      },
+
+      commits: {
+        href: "...", # string
+      },
+
+      html: {
+        href: "...", # string
+      },
+
+      issue: {
+        href: "...", #string
+      },
+
+      review_comment: {
+        href: "...", # string
+      },
+
+      review_comments: {
+        href: "...", # string
+      },
+
+      self: {
+        href: "...", #string
+      },
+
+      statuses: {
+        href: "..."
+      }
+    },
+
+    active_lock_reason: string || nulll, # (resolved, off-topic, too heated, spam, null)
+
+    additions: integer, # optional
+
+    assignee: { # object or null
+       avatar_url: string, # optional
+       deleted: boolean, # optional
+       email: string || null, # optional
+       events_url: string, # optional
+       followers_url: string, # optional
+       following_url: string, # optional
+       gists_url: string, # optional
+       gravatar_id: string, # optional
+       html_url: string, # optional
+       id: integer,
+       login: string,
+       name: string, # optional
+       node_id: string, # optional
+       organizations_url: string, # optional
+       received_events_url: string, # optional
+       repos_url: string, # optional
+       site_admin: string, # optional
+       starred_url: string, # optional
+       subscriptions_url: string, # optional
+       type: string, # optional
+       url: string, # optional
+    },
+
+    assignees: [{}, null], # array of object,nulls
+
+    author_association: "string", # How the author is associated with the repository. Can be one of: COLLABORATOR, CONTRIBUTOR, FIRST_TIMER, FIRST_TIME_CONTRIBUTOR, MANNEQUIN, MEMBER, NONE, OWNER
+  
+    auto_merge: { # object or null - The status of auto merging a pull request.
+      commit_message: string || null, # Commit message for the merge commit.
+      commit_title: string or null,
+      enabled_by: {
+        avatar_url: string, # optional
+        deleted: boolean, # optional
+        email: string || null, # optional
+        events_url: string, # optional
+        followers_url: string, # optional
+        following_url: string, # optional
+        gists_url: string, # optional
+        gravatar_id: string, # optional
+        html_url: string, # optional
+        id: integer,
+        login: string,
+        name: string, # optional
+        node_id: string, # optional
+        organizations_url: string, # optional
+        received_events_url: string, # optional
+        repos_url: string, # optional
+        site_admin: string, # optional
+        starred_url: string, # optional
+        subscriptions_url: string, # optional
+        type: string, # optional
+        url: string, # optional
+      },
+      merge_method: string, # The merge method to use. Can be one of: merge, squash, rebase
+    },
+
+    base: {
+      label: string,
+      ref: string,
+      repo: {
+        allow_auto_merge
+        allow_forking
+        allow_merge_commit
+        allow_rebase_merge
+        allow_squash_merge
+        allow_update_branch
+        archive_url
+        archived
+        assignees_url
+        blobs_url
+        branches_url
+        clone_url
+        collaborators_url
+        comments_url
+        commits_url
+        compare_url
+        contents_url
+        contributors_url
+        created_at
+        default_branch
+        delete_branch_on_merge
+        deployments_url
+        description
+        disabled
+        downloads_url
+        events_url
+        fork
+        forks
+        forks_count
+        forks_url
+        full_name
+        git_commits_url
+        git_refs_url
+        git_tags_url
+        git_url
+        has_downloads
+        has_issues
+        has_pages
+        has_projects
+        has_wiki
+        has_discussions
+        homepage
+        hooks_url
+        html_url
+        id
+        is_template
+        issue_comment_url
+        issue_events_url
+        issues_url
+        keys_url
+        labels_url
+        language
+        languages_url
+        license: { # object or null
+          key
+          name
+          node_id
+          spdx_id
+          url
+        },
+        master_branch
+        merge_commit_message # PR_TITLE, PR_BODY OR BLANK
+        merge_commit_title # PR_TITLE, MERG_MESSAGE
+        merges_url
+        milestones_url
+        mirror_url
+        name
+        node_id
+        notifications_url
+        open_issues
+        open_issues_count
+        organization
+        owner: {
+          avatar_url: string, # optional
+          deleted: boolean, # optional
+          email: string || null, # optional
+          events_url: string, # optional
+          followers_url: string, # optional
+          following_url: string, # optional
+          gists_url: string, # optional
+          gravatar_id: string, # optional
+          html_url: string, # optional
+          id: integer,
+          login: string,
+          name: string, # optional
+          node_id: string, # optional
+          organizations_url: string, # optional
+          received_events_url: string, # optional
+          repos_url: string, # optional
+          site_admin: string, # optional
+          starred_url: string, # optional
+          subscriptions_url: string, # optional
+          type: string, # optional (Bot, User or Organization)
+          url: string, # optional
+        },
+
+        permissions: {
+          admin # boolean
+          maintain # boolean (OPTIONAL)
+          pull # boolean
+          triage # boolean (OPTIONAL)
+        }
+
+        private # boolean
+        public # boolean (OPTIONAL)
+        pulls_url
+        pushed_at # null, inegar or string
+        releases_url
+        role_name # string or null (OPTIONAL)
+        size # integer
+
+        squash_merge_commit_message # PR_BODY, COMMIT_MESSAGES, BLANK (OPTIONAL)
+        squash_merge_commit_title # PR_TITLE, COMMIT_OR_PR_TITLE (OPTIONAL)
+
+        ssh_url
+        stargazers # integer (OPTIONAL)
+        stargazers_count # integer
+        stargazers_url
+        statuses_url
+        subscribers_url
+        subscription_url
+        svn_url
+        tags_url
+        teams_url
+        topics
+        trees_url
+        updated_at
+        url
+        use_squash_pr_title_as_default: boolean # (OPTIONAL) Whether a squash merge commit can use the pull request title as default. **This property has been deprecated. Please use squash_merge_commit_title instead. Default: false
+        visibility # public, private or internal
+        watchers # integer
+        watchers_count # integer
+        web_commit_signoff_required # OPTIONAL  - boolean Whether to require contributors to sign off on web-based commits  
+      },
+      sha: string,
+      user: { # object or null
+        avatar_url: string, # optional
+        deleted: boolean, # optional
+        email: string || null, # optional
+        events_url: string, # optional
+        followers_url: string, # optional
+        following_url: string, # optional
+        gists_url: string, # optional
+        gravatar_id: string, # optional
+        html_url: string, # optional
+        id: integer,
+        login: string,
+        name: string, # optional
+        node_id: string, # optional
+        organizations_url: string, # optional
+        received_events_url: string, # optional
+        repos_url: string, # optional
+        site_admin: string, # optional
+        starred_url: string, # optional
+        subscriptions_url: string, # optional
+        type: string, # optional
+        url: string, # optional
+      }
+    }
+  }
+ }
+
+ 
