@@ -9,7 +9,28 @@ jobs:
     steps:
     - name : Print Object of PR
       run: echo "The Object of your PR is ${{ github.event.pull_request }}"
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJSON(github) }}
-      run: echo "$GITHUB_CONTEXT"
+
+    - name : Print assignee
+      run: echo "Assignee is ${{ github.event.assignee }}"
+
+    - name : Print enterprise
+      run: echo "enterprise is ${{ github.event.enterprise }}"
+    
+    - name : Print installation
+      run: echo "installation is ${{ github.event.installation }}"
+
+    - name : Print PR number
+      run: echo "PR number is ${{ github.event.number }}"
+
+    - name : Print Organization
+      run: echo "Organization is ${{ github.event.organization }}"
+
+    - name : Print Repository
+      run: echo "Repository is ${{ github.event.repository }}"
+
+    - name : Print Sender
+      run: echo "Sender is ${{ github.event.sender }}"
+    # - name: Dump GitHub context
+    #   env:
+    #     GITHUB_CONTEXT: ${{ toJSON(github) }}
+    #   run: echo "$GITHUB_CONTEXT"
