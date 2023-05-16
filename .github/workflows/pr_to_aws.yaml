@@ -30,27 +30,7 @@ jobs:
 
     - name: WEB HOOK POST REQUEST
       run: |
-        curl -X POST http://ec2-18-228-238-80.sa-east-1.compute.amazonaws.com:8080/github-webhook/ \
-          -H "Accept: */*" \
-          -H "Content-Type: application/json" \
-          -H "User-Agent: GitHub-Hookshot/87ca02f" \
-          -H "X-GitHub-Delivery: 40223f80-f346-11ed-867f-464ec649efc2" \
-          -H "X-GitHub-Event: pull_request" \
-          -H "X-GitHub-Hook-ID: 413733004" \
-          -H "X-GitHub-Hook-Installation-Target-ID: 638476158" \
-          -H "X-GitHub-Hook-Installation-Target-Type: repository" \
-          -d '{ \
-            "action": "synchronize", \
-            "after": ${{ github.event.after }}, \
-            "before": ${{ github.event.before }}, \
-            "enterprise": ${{ github.event.enterprise }}, \
-            "installation": ${{ github.event.installation }}, \
-            "number": ${{ github.event.number }}, \
-            "organization": ${{ github.event.organization }}, \
-            "pull_request": ${{ github.event.pull_request }}, \
-            "repository": ${{ github.event.repository }}, \
-            "sender": ${{ github.event.sender }}, \
-          }'
+        curl -X POST http://ec2-18-228-238-80.sa-east-1.compute.amazonaws.com:8080/github-webhook/
               
     - name: Remove Github Actions IP from security group
       run: |
