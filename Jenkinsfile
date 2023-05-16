@@ -1,8 +1,7 @@
-// before deploy
 pipeline {
     agent any
     stages {
-        stage('Check tools') {
+        stage('TEST PIPELINE') {
             steps {
                 echo 'Pipeline test'
             }
