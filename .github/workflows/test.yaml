@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name : Print Object of PR
-      run: echo The Object of your PR is ${{ github.event.pull_request }}
+      run: echo "The Object of your PR is ${{ github.event.pull_request }}"
