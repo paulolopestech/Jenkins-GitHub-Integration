@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: 🔎 Set GitHub Actions IP to GITHUB_ENV
-        run: echo "GITHUB_ACTIONS_IP=$(curl https://api.ipify.org)" >> $GITHUB_ENV
+      run: echo "GITHUB_ACTIONS_IP=$(curl https://api.ipify.org)" >> $GITHUB_ENV
     
     - name: PRINT ECHO GIP
         run: echo "${{ env.GITHUB_ACTIONS_IP }}"
