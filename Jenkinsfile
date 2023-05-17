@@ -7,7 +7,6 @@ pipeline {
                 [key: 'pr_id', value: '$.pull_request.id']
             ],
             regexpFilterText: '$ref $pr_id',
-            regexpFilterExpression: 'refs/heads/' + BRANCH_NAME
         )
     }
 
