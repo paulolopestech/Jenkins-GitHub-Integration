@@ -3,10 +3,10 @@ pipeline {
     triggers {
         GenericTrigger(
             genericVariables: [
-                ['ref', '$.ref']
-                ['pr_id', '$.pull_request.id']
+                [key: 'ref', value: '$.ref'],
+                [key: 'pr_id', value: '$.pull_request.id']
             ],
-            regexpFilterText: '$ref$pr_id',
+            regexpFilterText: '$ref $pr_id',
             regexpFilterExpression: 'refs/heads/' + BRANCH_NAME
         )
     }
