@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('TEST PIPELINE') {
             steps {
-                echo "$pr_id"
+                echo $pr_id
             }
         }
     }
