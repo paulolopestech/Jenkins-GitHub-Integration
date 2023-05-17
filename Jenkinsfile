@@ -1,9 +1,20 @@
 pipeline {
     agent any
+    triggers {
+        GenericTrigger(
+            genericVariables: [
+                [key: 'ref', value: '$.ref']
+                [key: 'pr_id', value: '$.pull_request.id']
+            ],
+            regexpFilterText: '$ref$pr_id',
+            regexpFilterExpression: 'refs/heads/' + BRANCH_NAME
+        )
+    }
+
     stages {
         stage('TEST PIPELINE') {
             steps {
-                echo 'Pipeline test'
+                echo "prid $pr_id"
             }
         }
     }
