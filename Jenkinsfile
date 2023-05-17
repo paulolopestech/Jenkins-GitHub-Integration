@@ -13,20 +13,20 @@ pipeline {
     stages {
         stage('TEST PIPELINE') {
             steps {
-                echo "prid $pr_id"
+                echo "$pr_id"
             }
         }
     }
 
-    post{
-        success{
-            setBuildStatus("Build succeeded", "SUCCESS");
-        }
+    // post{
+    //     success{
+    //         setBuildStatus("Build succeeded", "SUCCESS");
+    //     }
 
-        failure {
-            setBuildStatus("Build failed", "FAILURE");
-        } 
-    }
+    //     failure {
+    //         setBuildStatus("Build failed", "FAILURE");
+    //     } 
+    // }
 }
 
 // void setBuildStatus(String message, String state) {
