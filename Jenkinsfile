@@ -49,22 +49,24 @@ pipeline {
 
     post{
         success{
-            setBuildStatus("Build succeeded", "SUCCESS");
+            // setBuildStatus("Build succeeded", "SUCCESS");
+            echo success
         }
 
         failure {
-            setBuildStatus("Build failed", "FAILURE");
+            // setBuildStatus("Build failed", "FAILURE");
+            echo failure
         } 
     }
 }
 
-void setBuildStatus(String message, String state) {
-    step([
-        $class: "GitHubCommitStatusSetter",
-        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/paulolopestech/CI-CD"],
-        commitShaSource: [$class: "ManuallyEnteredShaSource", sha: $pr_from_sha],
-        contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
-        errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
-        statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]]]
-    ]);
-}
+// void setBuildStatus(String message, String state) {
+//     step([
+//         $class: "GitHubCommitStatusSetter",
+//         reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/paulolopestech/CI-CD"],
+//         commitShaSource: [$class: "ManuallyEnteredShaSource", sha: $pr_from_sha],
+//         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+//         errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+//         statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]]]
+//     ]);
+// }
