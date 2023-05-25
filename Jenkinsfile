@@ -42,7 +42,7 @@ pipeline {
     stages {
         stage('TEST PIPELINE') {
             steps {
-                echo $payload
+                echo $.payload
             }
         }
     }
