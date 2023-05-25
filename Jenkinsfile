@@ -50,9 +50,9 @@ pipeline {
                 // def payloadJson = readJSON text: $payload
                 echo 'aqui'
                 sh 'echo "$JSON_PAYLOAD.pr_id"'
-                JSON_PAYLOAD.each { key, value ->
-                    echo "$key , $value"
-                }
+                // JSON_PAYLOAD.each { key, value ->
+                //     echo "$key , $value"
+                // }
             }
         }
     }
