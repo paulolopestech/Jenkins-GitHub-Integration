@@ -43,7 +43,7 @@ pipeline {
         stage('TEST PIPELINE') {
             steps {
                 echo 'aqui'
-                echo "${{$payload}}"
+                echo "${$payload}"
             }
         }
     }
