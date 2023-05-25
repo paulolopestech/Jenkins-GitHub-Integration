@@ -1,25 +1,32 @@
-node {
+pipeline {
     agent any
 
-    properties([
-        pipelineTriggers([
-            [$class: 'GenericTrigger',
+    triggers {
+        GenericTrigger(
             genericVariables: [
                 [key: 'payload', value: '$.payload'],
-                // [key: 'pr_id', value: '$.pull_request.id'],
-                // [key: 'pr_state', value: '$.pull_request.state'],
-                // [key: 'pr_title', value: '$.pull_request.title'],
-                // [key: 'pr_from_ref', value: '$.pull_request.head.ref'],
-                // [key: 'pr_from_sha', value: '$.pull_request.head.sha'],
-                // [key: 'pr_from_git_url', value: '$.pull_request.head.repo.git_url'],
-                // [key: 'pr_to_ref', value: '$.pull_request.base.ref'],
-                // [key: 'pr_to_sha', value: '$.pull_request.base.sha'],
-                // [key: 'pr_to_git_url', value: '$.pull_request.base.repo.git_url'],
-                // [key: 'repo_git_url', value: '$.repository.git_url'],
-            ]            
-            ]
-        ])
-    ])
+            ],
+        )
+    }
+
+    // properties([
+    //     pipelineTriggers([
+    //         [$class: 'GenericTrigger',
+    //         genericVariables: [
+    //             // [key: 'pr_id', value: '$.pull_request.id'],
+    //             // [key: 'pr_state', value: '$.pull_request.state'],
+    //             // [key: 'pr_title', value: '$.pull_request.title'],
+    //             // [key: 'pr_from_ref', value: '$.pull_request.head.ref'],
+    //             // [key: 'pr_from_sha', value: '$.pull_request.head.sha'],
+    //             // [key: 'pr_from_git_url', value: '$.pull_request.head.repo.git_url'],
+    //             // [key: 'pr_to_ref', value: '$.pull_request.base.ref'],
+    //             // [key: 'pr_to_sha', value: '$.pull_request.base.sha'],
+    //             // [key: 'pr_to_git_url', value: '$.pull_request.base.repo.git_url'],
+    //             // [key: 'repo_git_url', value: '$.repository.git_url'],
+    //         ]            
+    //         ]
+    //     ])
+    // ])
 
 
     // triggers {
