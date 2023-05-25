@@ -4,7 +4,7 @@ pipeline {
     triggers {
         GenericTrigger(
             genericVariables: [
-                [key: 'payload', value: '$.payload'],
+                [key: 'payload', value: '$'],
             ],
         )
     }
@@ -42,7 +42,7 @@ pipeline {
     stages {
         stage('TEST PIPELINE') {
             steps {
-                echo $.payload
+                echo $payload
             }
         }
     }
