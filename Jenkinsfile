@@ -43,7 +43,7 @@ pipeline {
         stage('TEST PIPELINE') {
             steps {
                 echo 'aqui'
-                sh 'echo "$payload"'
+                sh 'echo "$payload.pull_request"'
             }
         }
     }
