@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    options([
+    options{
         pipelineTriggers([
             [$class: 'GenericTrigger',
             genericVariables: [
@@ -19,7 +19,7 @@ pipeline {
             ]            
             ]
         ])
-    ])
+    }
 
 
     // triggers {
