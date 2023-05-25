@@ -40,13 +40,17 @@ pipeline {
     //     )
     // }
 
+    environment {
+        JSON_PAYLOAD = readJSON text: $payload
+    }
+
     stages {
         stage('TEST PIPELINE') {
             steps {
-                def payloadJson = readJSON text: $payload
+                // def payloadJson = readJSON text: $payload
                 echo 'aqui'
-                sh 'echo "$pr_id"'
-                payloadJson.each { key, value ->
+                sh 'echo "$JSON_PAYLOAD.pr_id"'
+                JSON_PAYLOAD.each { key, value ->
                     echo "$key , $value"
                 }
             }
