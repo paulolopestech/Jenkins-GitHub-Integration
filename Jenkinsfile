@@ -7,6 +7,7 @@ pipeline {
                 // [key: 'payload', value: '$'],
                 [key: 'pr_id', value: '$.pull_request.id'],
             ],
+            regexpFilterText: '$ref $pr_id',
         )
     }
 
