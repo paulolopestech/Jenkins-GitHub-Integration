@@ -5,6 +5,7 @@ pipeline {
         GenericTrigger(
             genericVariables: [
                 [key: 'payload', value: '$'],
+                [key: 'pr_id', value: '$.pull_request.id'],
             ],
         )
     }
@@ -42,8 +43,12 @@ pipeline {
     stages {
         stage('TEST PIPELINE') {
             steps {
+                def payloadJson = readJSON text: $payload
                 echo 'aqui'
-                sh 'echo "$payload.pull_request"'
+                sh 'echo "$pr_id"'
+                payloadJson.each { key, value ->
+                    echo "$key , $value"
+                }
             }
         }
     }
