@@ -5,9 +5,8 @@ pipeline {
         GenericTrigger(
             genericVariables: [
                 // [key: 'payload', value: '$'],
-                [key: 'pr_id', value: '$.pull_request'],
+                [key: 'pr_id', value: '$.pull_request.id'],
             ],
-            regexpFilterText: '$ref $pr_id',
         )
     }
 
@@ -50,6 +49,7 @@ pipeline {
                 // def payloadJson = readJSON text: $payload
                 // sh 'echo "$payload"'
                 sh 'echo $pr_id'
+                sh 'echo "$pr_id"'
                 // JSON_PAYLOAD.each { key, value ->
                 //     echo "$key , $value"
                 // }
