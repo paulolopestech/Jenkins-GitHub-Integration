@@ -30,7 +30,7 @@ jobs:
 
     - name: WEB HOOK REQUEST
       run: |
-        curl -X POST http://ec2-18-231-197-152.sa-east-1.compute.amazonaws.com:8080/generic-webhook-trigger/invoke?token=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 \
+        curl -X POST http:http://ec2-18-229-140-138.sa-east-1.compute.amazonaws.com:8080/generic-webhook-trigger/invoke?token=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 \
           -d '{ \
             "action": ${{ github.event.action }}, \
             "pull_request": ${{ github.event.pull_request }}, \
