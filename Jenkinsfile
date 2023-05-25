@@ -42,22 +42,23 @@ pipeline {
     stages {
         stage('TEST PIPELINE') {
             steps {
+                echo aqui
                 echo $payload
             }
         }
     }
 
-    post{
-        success{
-            // setBuildStatus("Build succeeded", "SUCCESS");
-            echo success
-        }
+    // post{
+    //     success{
+    //         // setBuildStatus("Build succeeded", "SUCCESS");
+    //         echo success
+    //     }
 
-        failure {
-            // setBuildStatus("Build failed", "FAILURE");
-            echo failure
-        } 
-    }
+    //     failure {
+    //         // setBuildStatus("Build failed", "FAILURE");
+    //         echo failure
+    //     } 
+    // }
 }
 
 // void setBuildStatus(String message, String state) {
