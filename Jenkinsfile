@@ -47,9 +47,8 @@ pipeline {
             // }
             steps {
                 // def payloadJson = readJSON text: $payload
-                echo 'aqui'
-                sh 'echo "$payload"'
-                sh 'echo "$pr_id"'
+                // sh 'echo "$payload"'
+                sh 'echo $pr_id'
                 // JSON_PAYLOAD.each { key, value ->
                 //     echo "$key , $value"
                 // }
