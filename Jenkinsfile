@@ -51,7 +51,7 @@ pipeline {
             steps {
                 // sh 'echo ${payload}'
                 sh "echo $action"
-                sh "echo $pull_request_id"
+                sh "echo $id"
                 sh "echo $git_url"
                 // script {
                 //     def JSONGIT = readJSON text: $repository
