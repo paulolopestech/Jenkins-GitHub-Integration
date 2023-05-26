@@ -36,7 +36,7 @@ jobs:
     
     - name: SHOW PR OBJECT
       run: |
-        echo "${{ github.event.pull_request }}"
+        echo "${{ github.event.pull_request.id }}"
               
     - name: Remove Github Actions IP from security group
       run: |
