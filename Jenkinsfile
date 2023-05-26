@@ -48,7 +48,7 @@ pipeline {
             // }
             steps {
                 // sh 'echo "$JSON_PAYLOAD"'
-                sh 'echo ${payload}'
+                // sh 'echo ${payload}'
                 sh 'echo ${pr_id}'
                 // script {
                         // JSON_PAYLOAD.each { key, value ->
