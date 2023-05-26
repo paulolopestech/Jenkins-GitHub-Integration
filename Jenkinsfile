@@ -4,7 +4,7 @@ pipeline {
     triggers {
         GenericTrigger(
             genericVariables: [
-                [key: 'payload', value: '$.'],
+                [key: 'payload', value: '$'],
             ],
         )
     }
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 echo $payload
                 // echo $JSON_PAYLOAD
-                // sh 'echo JSON_PAYLOAD'
+                sh 'echo "$payload"'
                 // payloadJson = readJSON text: $payload
                 // JSON_PAYLOAD.each {
                 //     key, value ->
