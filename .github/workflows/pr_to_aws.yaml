@@ -34,10 +34,6 @@ jobs:
           -d '{"action": ${{ github.event.action }}, "pull_request": ${{ github.event.pull_request }}, "repository": ${{ github.event.repository }}}' \
           -X POST http://ec2-54-94-95-148.sa-east-1.compute.amazonaws.com:8080/generic-webhook-trigger/invoke?token=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
     
-    - name: SHOW PR OBJECT
-      run: |
-        echo "${{ github.event.pull_request.id }}"
-              
     - name: Remove Github Actions IP from security group
       run: |
         aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol all --port all --cidr ${{ env.GITHUB_ACTIONS_IP }}/32
