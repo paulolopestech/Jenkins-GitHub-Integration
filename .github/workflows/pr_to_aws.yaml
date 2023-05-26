@@ -20,7 +20,7 @@ jobs:
         echo "AWS_DEFAULT_REGION=sa-east-1" >> $GITHUB_ENV
         echo "AWS_SG_NAME=CICD" >> $GITHUB_ENV
         echo "GITHUB_EVENT_ACTION=${{ github.event.action }}" >> $GITHUB_ENV
-        echo "GITHUB_EVENT_PULL_REQUEST=${{ github.event.pull_request }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT_PULL_REQUEST=${{ github.event.pull_request.id }}" >> $GITHUB_ENV
         echo "GITHUB_EVENT_REPOSITORY=${{ github.event.repository }}" >> $GITHUB_ENV
         
     - name: Add Github Actions IP to Security group
@@ -34,7 +34,7 @@ jobs:
     - name: WEB HOOK REQUEST
       run: |
         curl -v -H "Content-Type: application/json" \
-          -d '{"action": ${{ env.GITHUB_EVENT_ACTION }}, "pull_request": ${{ env.GITHUB_EVENT_PULL_REQUEST.id }}, "repository": ${{ env.GITHUB_EVENT_REPOSITORY }}}' \
+          -d '{"action": ${{ env.GITHUB_EVENT_ACTION }}, "pull_request": ${{ env.GITHUB_EVENT_PULL_REQUEST }}, "repository": ${{ env.GITHUB_EVENT_REPOSITORY }}}' \
           -X POST http://ec2-54-94-95-148.sa-east-1.compute.amazonaws.com:8080/generic-webhook-trigger/invoke?token=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
     
     - name: SHOW ENV
