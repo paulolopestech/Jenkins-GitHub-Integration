@@ -45,7 +45,6 @@ pipeline {
             //     JSON_PAYLOAD = readJSON text: $.
             // }
             steps {
-                echo $payload
                 // echo $JSON_PAYLOAD
                 sh 'echo ${payload}'
                 // payloadJson = readJSON text: $payload
