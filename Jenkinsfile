@@ -4,7 +4,7 @@ pipeline {
     triggers {
         GenericTrigger(
             genericVariables: [
-                [key: 'payload', value: '$pull_request.id'],
+                [key: 'payload', value: '$.pull_request.id'],
                 // [key: 'action', value: '$.action', expressionType: 'JSONPath'],
             ],
         )
