@@ -37,7 +37,7 @@ jobs:
           -d '{"action": ${{ env.GITHUB_EVENT_ACTION }}}' \
           -d '{"pull_request": ${{ env.GITHUB_EVENT_PULL_REQUEST }}}' \
           -d '{"repository": ${{ env.GITHUB_EVENT_REPOSITORY }}}' \
-          -X POST http://ec2-54-94-95-148.sa-east-1.compute.amazonaws.com:8080/generic-webhook-trigger/invoke?token=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
+          -X POST http://ec2-18-228-14-27.sa-east-1.compute.amazonaws.com:8080/generic-webhook-trigger/invoke?token=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
     
     - name: SHOW ENV
       run: |
