@@ -47,8 +47,8 @@ pipeline {
             // }
             // echo payload
             steps {
-                sh 'echo ${payload}'
-                // sh "echo ${payload}"
+                // sh 'echo ${payload}'
+                sh "echo ${payload}"
                 // echo $action
                 // script {
                         // JSON_PAYLOAD.each { key, value ->
