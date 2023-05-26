@@ -31,6 +31,7 @@ jobs:
     - name: WEB HOOK REQUEST
       run: |
         curl -X POST http://ec2-54-94-95-148.sa-east-1.compute.amazonaws.com:8080/generic-webhook-trigger/invoke?token=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 \
+          -H 'Content-Type: application/json' \
           -d '{ \
             "action": ${{ github.event.action }}, \
             "pull_request": ${{ github.event.pull_request }}, \
