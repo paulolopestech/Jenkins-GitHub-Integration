@@ -45,7 +45,7 @@ pipeline {
             //     JSON_PAYLOAD = readJSON text: $payload
             // }
             steps {
-                def payloadJson = readJSON text: $payload
+                payloadJson = readJSON text: $payload
                 payload.each {
                     key, value ->
                     echo "$key : $value"
