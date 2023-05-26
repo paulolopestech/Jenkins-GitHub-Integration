@@ -54,7 +54,7 @@ pipeline {
                 sh "echo $pull_request"
                 sh "echo ${repository}"
                 script {
-                    def JSONGIT = readJSON text: "${repository}"
+                    def JSONGIT = readJSON text: $repository
                     echo JSONGIT
                 }
                 // sh "echo ${JSONGIT}"
