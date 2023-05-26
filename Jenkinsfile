@@ -5,7 +5,7 @@ pipeline {
         GenericTrigger(
             genericVariables: [
                 // [key: 'payload', value: '$'],
-                [key: 'payload', value: '$.action'],
+                [key: 'payload', value: '$'],
             ],
         )
     }
