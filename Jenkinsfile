@@ -45,9 +45,9 @@ pipeline {
             // environment {
                 // JSON_PAYLOAD = readJSON text: ${payload}
             // }
+            // echo payload
             steps {
-                echo payload
-                sh 'echo ${payload}'
+                sh "echo $payload"
                 // echo $action
                 // script {
                         // JSON_PAYLOAD.each { key, value ->
