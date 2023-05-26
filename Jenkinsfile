@@ -6,7 +6,7 @@ pipeline {
             genericVariables: [
                 [key: 'action', value: '$.action', expressionType: 'JSONPath'],
                 [key: 'pull_request', value: '$.pull_request', expressionType: 'JSONPath'],
-                [key: 'repository', value: '$.repository', expressionType: 'JSONPath'],
+                [key: 'repository', value: '$.repository.git_url', expressionType: 'JSONPath'],
                 // [key: 'payload', value: '$'],
             ],
         )
@@ -52,7 +52,7 @@ pipeline {
                 // sh 'echo ${payload}'
                 sh "echo $action"
                 sh "echo $pull_request"
-                sh "echo ${repository.git_url}"
+                sh "echo $repository"
                 // script {
                 //     def JSONGIT = readJSON text: $repository
                 //     echo JSONGIT
