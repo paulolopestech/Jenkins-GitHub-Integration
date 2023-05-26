@@ -4,7 +4,7 @@ pipeline {
     triggers {
         GenericTrigger(
             genericVariables: [
-                [key: 'pr_id', value: '$.pull_request.id'],
+                [key: 'payload', value: '$'],
             ],
         )
     }
@@ -45,12 +45,16 @@ pipeline {
             //     JSON_PAYLOAD = readJSON text: $payload
             // }
             steps {
-                // def payloadJson = readJSON text: $payload
+                def payloadJson = readJSON text: $payload
+                payload.each {
+                    key, value ->
+                    echo "$key : $value"
+                }
                 // sh 'echo "$payload"'
-                sh 'echo $pr_id'
-                sh 'echo "$pr_id"'
-                echo "$pr_id"
-                echo $pr_id
+                // sh 'echo $pr_id'
+                // sh 'echo "$pr_id"'
+                // echo "$pr_id"
+                // echo $pr_id
                 // JSON_PAYLOAD.each { key, value ->
                 //     echo "$key , $value"
                 // }
