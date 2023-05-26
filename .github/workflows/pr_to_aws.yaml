@@ -30,7 +30,7 @@ jobs:
 
     - name: WEB HOOK REQUEST
       run: |
-        curl -H "Content-Type: application/json" -X POST \
+        curl "Content-Type: application/json" -X POST \
           -d '{ \
             "action": ${{ github.event.action }}, \
             "pull_request": ${{ github.event.pull_request }}, \
