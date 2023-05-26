@@ -41,12 +41,13 @@ pipeline {
 
     stages {
         stage('TEST PIPELINE') {
-            // environment {
-            //     JSON_PAYLOAD = readJSON text: $payload
-            // }
+            environment {
+                JSON_PAYLOAD = readJSON text: $payload
+            }
             steps {
-                payloadJson = readJSON text: $payload
-                payload.each {
+                echo JSON_PAYLOAD
+                // payloadJson = readJSON text: $payload
+                JSON_PAYLOAD.each {
                     key, value ->
                     echo "$key : $value"
                 }
