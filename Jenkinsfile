@@ -45,13 +45,13 @@ pipeline {
                 JSON_PAYLOAD = readJSON text: ${payload}
             }
             steps {
-                // sh 'echo "$JSON_PAYLOAD"'
+                sh 'echo "$JSON_PAYLOAD"'
                 // sh 'echo ${payload}'
-                script {
-                        JSON_PAYLOAD.each { key, value ->
-                        echo "$key , $value"
-                    }
-                }
+                // script {
+                        // JSON_PAYLOAD.each { key, value ->
+                        // echo "$key , $value"
+                    // }
+                // }
             }
         }
     }
