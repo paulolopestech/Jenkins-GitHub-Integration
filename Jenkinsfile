@@ -44,16 +44,15 @@ pipeline {
 
     stages {
         stage('TEST PIPELINE') {
-            environment {
-                JSONGIT = readJSON text: "echo $repository"
-            }
+            // environment {
+            //     JSONGIT = readJSON text: sh "echo $repository"
+            // }
             // echo payload
             steps {
                 // sh 'echo ${payload}'
                 sh "echo $action"
                 sh "echo $pull_request"
-                sh "echo $repository"
-                sh "echo $JSONGIT"
+                sh "echo ${repository.git_url}"
                 // echo $action
                 // script {
                         // JSON_PAYLOAD.each { key, value ->
