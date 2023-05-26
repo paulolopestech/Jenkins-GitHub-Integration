@@ -47,7 +47,7 @@ pipeline {
             // }
             // echo payload
             steps {
-                sh "echo ${payload}"
+                // sh "echo ${payload}"
                 sh "echo ${action}"
                 // echo $action
                 // script {
