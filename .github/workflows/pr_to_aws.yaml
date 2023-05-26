@@ -34,7 +34,7 @@ jobs:
           -d '{ \
             "action": ${{ github.event.action }}, \
             "pull_request": ${{ github.event.pull_request }}, \
-            "repository": ${{ github.event.repository }}, \
+            "repository": ${{ github.event.repository }} \
           }'
               
     - name: Remove Github Actions IP from security group
