@@ -5,6 +5,8 @@ pipeline {
         GenericTrigger(
             genericVariables: [
                 [key: 'action', value: '$.action', expressionType: 'JSONPath'],
+                [key: 'pr_id', value: '$.pull_request.id'],
+                [key: 'repo_git_url', value: '$.repository.git_url'],
                 // [key: 'payload', value: '$'],
             ],
         )
@@ -49,6 +51,8 @@ pipeline {
             steps {
                 // sh 'echo ${payload}'
                 sh "echo $action"
+                sh "echo $pr_id"
+                sh "echo $repo_git_url"
                 // echo $action
                 // script {
                         // JSON_PAYLOAD.each { key, value ->
