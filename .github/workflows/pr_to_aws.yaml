@@ -41,7 +41,7 @@ jobs:
       run: |
         echo ${{env.GITHUB_EVENT_ACTION}}
         echo ${{env.GITHUB_EVENT_PULL_REQUEST}}
-        echo ${{env.GITHUB_EVENT_REPOSITORY.git_url}}
+        echo ${{env.GITHUB_EVENT_REPOSITORY}}
 
     - name: Remove Github Actions IP from security group
       run: |
