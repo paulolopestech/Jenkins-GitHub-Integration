@@ -52,7 +52,7 @@ pipeline {
                 // sh 'echo ${payload}'
                 sh "echo $action"
                 sh "echo $pull_request"
-                sh "echo ${repository.git_url}"
+                sh "echo ${repository}"
                 // echo $action
                 // script {
                         // JSON_PAYLOAD.each { key, value ->
