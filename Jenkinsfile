@@ -5,7 +5,7 @@ pipeline {
         GenericTrigger(
             genericVariables: [
                 [key: 'payload', value: '$', expressionType: 'JSONPath'],
-                // [key: 'action', value: '$.action', expressionType: 'JSONPath'],
+                [key: 'action', value: '$.action', expressionType: 'JSONPath'],
             ],
         )
     }
@@ -48,6 +48,7 @@ pipeline {
             // echo payload
             steps {
                 sh "echo ${payload}"
+                sh "echo ${action}"
                 // echo $action
                 // script {
                         // JSON_PAYLOAD.each { key, value ->
