@@ -51,7 +51,7 @@ pipeline {
             steps {
                 // sh 'echo ${payload}'
                 sh "echo $action"
-                sh "echo $pr_id"
+                sh "echo $pull_request"
                 sh "echo $repo_git_url"
                 // echo $action
                 // script {
