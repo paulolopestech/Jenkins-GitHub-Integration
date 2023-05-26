@@ -45,7 +45,7 @@ pipeline {
     stages {
         stage('TEST PIPELINE') {
             environment {
-                JSONGIT = readJSON text: "$repository"
+                JSONGIT = readJSON text: "echo $repository"
             }
             // echo payload
             steps {
