@@ -45,12 +45,13 @@ pipeline {
                 JSON_PAYLOAD = readJSON text: $payload
             }
             steps {
-                echo JSON_PAYLOAD
+                echo $JSON_PAYLOAD
+                // sh 'echo JSON_PAYLOAD'
                 // payloadJson = readJSON text: $payload
-                JSON_PAYLOAD.each {
-                    key, value ->
-                    echo "$key : $value"
-                }
+                // JSON_PAYLOAD.each {
+                //     key, value ->
+                //     echo "$key : $value"
+                // }
                 // sh 'echo "$payload"'
                 // sh 'echo $pr_id'
                 // sh 'echo "$pr_id"'
