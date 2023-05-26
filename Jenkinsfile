@@ -52,7 +52,7 @@ pipeline {
                 // sh 'echo ${payload}'
                 sh "echo $action"
                 sh "echo $pull_request"
-                sh "echo $repository"
+                sh "echo $git_url"
                 // script {
                 //     def JSONGIT = readJSON text: $repository
                 //     echo JSONGIT
