@@ -59,12 +59,12 @@ pipeline {
 
     post{
         success{
-            setBuildStatus("Build succeeded", "SUCCESS", $pr_sha);
+            setBuildStatus("Build succeeded", "SUCCESS", "$pr_sha");
             echo success
         }
 
         failure {
-            setBuildStatus("Build failed", "FAILURE", $pr_sha);
+            setBuildStatus("Build failed", "FAILURE", "$pr_sha");
             echo failure
         } 
     }
