@@ -59,22 +59,22 @@ pipeline {
 
     post{
         success{
-            setBuildStatus("Build succeeded", "SUCCESS");
+            setBuildStatus("Build succeeded", "SUCCESS", $pr_sha);
             echo success
         }
 
         failure {
-            setBuildStatus("Build failed", "FAILURE");
+            setBuildStatus("Build failed", "FAILURE", $pr_sha);
             echo failure
         } 
     }
 }
 
-void setBuildStatus(String message, String state) {
+void setBuildStatus(String message, String state, String event_sha) {
     step([
         $class: "GitHubCommitStatusSetter",
         reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/paulolopestech/CI-CD"],
-        commitShaSource: [$class: "ManuallyEnteredShaSource", sha: $pr_sha],
+        commitShaSource: [$class: "ManuallyEnteredShaSource", sha: event_sha],
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
         errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
         statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]]]
