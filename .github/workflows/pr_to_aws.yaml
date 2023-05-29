@@ -21,7 +21,7 @@ jobs:
         echo "AWS_SG_NAME=CICD" >> $GITHUB_ENV
         echo "GITHUB_EVENT_ACTION=${{ github.event.action }}" >> $GITHUB_ENV
         echo "GITHUB_EVENT_PULL_REQUEST=${{ github.event.pull_request }}" >> $GITHUB_ENV
-        echo "GITHUB_EVENT_PR_SHA=${{ github.event.pull_request.sha }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT_PR_SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
         echo "GITHUB_EVENT_REPOSITORY=${{ github.event.repository }}" >> $GITHUB_ENV
         echo "GITHUB_EVENT_REPOSITORY_URL=${{ github.event.repository.git_url }}" >> $GITHUB_ENV
         
