@@ -41,7 +41,8 @@ jobs:
     - name: SHOW ENV
       run: |
         echo ${{env.GITHUB_EVENT_ACTION}}
-        echo ${{env.GITHUB_EVENT_PULL_REQUEST.id}}
+        echo ${{env.GITHUB_EVENT_PULL_REQUEST}}
+        echo ${{ github.event.pull_request.id }}
         echo ${{env.GITHUB_EVENT_REPOSITORY}}
         echo ${{env.GITHUB_EVENT_REPOSITORY_URL}}
 
