@@ -72,8 +72,8 @@ pipeline {
 
 void setBuildStatus(String message, String state, String event_sha) {
     step([
-        $class: "GitHubCommitStatusSetter",
-        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/paulolopestech/CI-CD"],
+        $class: "GitHubCommitStatusSetter",h
+        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "git@github.com:paulolopestech/CI-CD.git"],
         commitShaSource: [$class: "ManuallyEnteredShaSource", sha: event_sha],
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
         errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
