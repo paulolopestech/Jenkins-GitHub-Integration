@@ -5,8 +5,8 @@ pipeline {
         GenericTrigger(
             genericVariables: [
                 [key: 'action', value: '$.action', expressionType: 'JSONPath'],
-                [key: 'pr_id', value: '$.pull_request', expressionType: 'JSONPath'],
                 [key: 'git_url', value: '$.repository.git_url', expressionType: 'JSONPath'],
+                [key: 'pr_sha', value: '$.pr_sha', expressionType: 'JSONPath'],
                 // [key: 'payload', value: '$'],
             ],
         )
@@ -51,8 +51,8 @@ pipeline {
             steps {
                 // sh 'echo ${payload}'
                 sh "echo $action"
-                sh "echo $pr_id"
                 sh "echo $git_url"
+                sh "echo $pr_sha"
                 // script {
                 //     def JSONGIT = readJSON text: $repository
                 //     echo JSONGIT
