@@ -72,7 +72,7 @@ pipeline {
 
 void setBuildStatus(String message, String state, String event_sha) {
     step([
-        $class: "GitHubCommitStatusSetter",h
+        $class: "GitHubCommitStatusSetter",
         reposSource: [$class: "ManuallyEnteredRepositorySource", url: "git@github.com:paulolopestech/CI-CD.git"],
         commitShaSource: [$class: "ManuallyEnteredShaSource", sha: event_sha],
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
