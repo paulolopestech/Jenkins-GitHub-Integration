@@ -20,10 +20,16 @@ jobs:
         echo "AWS_DEFAULT_REGION=sa-east-1" >> $GITHUB_ENV
         echo "AWS_SG_NAME=CICD" >> $GITHUB_ENV
         echo "GITHUB_EVENT_ACTION=${{ github.event.action }}" >> $GITHUB_ENV
-        echo "GITHUB_EVENT_PULL_REQUEST=${{ github.event.pull_request }}" >> $GITHUB_ENV
         echo "GITHUB_EVENT_PR_SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
-        echo "GITHUB_EVENT_REPOSITORY=${{ github.event.repository }}" >> $GITHUB_ENV
         echo "GITHUB_EVENT_REPOSITORY_URL=${{ github.event.repository.git_url }}" >> $GITHUB_ENV
+
+        echo "GITHUB_EVENT__PR_ID=${{ github.event.pull_request.id }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_STATE=${{ github.event.pull_request.state }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_REF=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__GIT_URL=${{ github.event.pull_request.head.repo.git_url }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__TO_REF=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__TO_SHA=${{ github.event.pull_request.base.sha }}" >> $GITHUB_ENV
         
     - name: Add Github Actions IP to Security group
       run: |
@@ -36,8 +42,11 @@ jobs:
     - name: WEB HOOK REQUEST
       run: |
         curl -v -H "Content-Type: application/json" \
-          -d "{"action": ${{ env.GITHUB_EVENT_ACTION }}, "pr_sha": ${{ env.GITHUB_EVENT_PR_SHA }}, "repository": ${{ env.GITHUB_EVENT_REPOSITORY }}}" \
-          -X POST http://ec2-54-232-216-111.sa-east-1.compute.amazonaws.com:8080/generic-webhook-trigger/invoke?token=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
+          -d "{ \
+            "action": ${{ env.GITHUB_EVENT_ACTION }}, \
+            "pr_sha": ${{ env.GITHUB_EVENT_PR_SHA }}, \
+            "git_url": ${{ env.GITHUB_EVENT_REPOSITORY_URL }}}" \
+          -X POST http://ec2-54-233-147-74.sa-east-1.compute.amazonaws.com:8080/generic-webhook-trigger/invoke?token=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
     
     - name: SHOW ENV
       run: |
