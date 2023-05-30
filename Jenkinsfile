@@ -5,54 +5,34 @@ pipeline {
         GenericTrigger(
             genericVariables: [
                 [key: 'action', value: '$.action', expressionType: 'JSONPath'],
-                [key: 'git_url', value: '$.git_url', expressionType: 'JSONPath'],
-                [key: 'pr_sha', value: '$.pr_sha', expressionType: 'JSONPath'],
-                // [key: 'payload', value: '$'],
+                [key: 'pr_id', value: '$.pr_id', expressionType: 'JSONPath'],
+                [key: 'pr_state', value: '$.pr_state', expressionType: 'JSONPath'],
+                [key: 'pr_title', value: '$.pr_title', expressionType: 'JSONPath'],
+                [key: 'pr_from_ref', value: '$.pr_from_ref', expressionType: 'JSONPath'],
+                [key: 'pr_from_sha', value: '$.pr_from_sha', expressionType: 'JSONPath'],
+                [key: 'pr_from_git_url', value: '$.pr_from_git_url', expressionType: 'JSONPath'],
+                [key: 'pr_to_ref', value: '$.pr_to_ref', expressionType: 'JSONPath'],
+                [key: 'pr_to_git_url', value: '$.pr_to_git_url', expressionType: 'JSONPath'],
+                [key: 'pr_to_sha', value: '$.pr_to_sha', expressionType: 'JSONPath'],
+                [key: 'repo_git_url', value: '$.repo_git_url', expressionType: 'JSONPath'],
             ],
         )
     }
 
-    // properties([
-    //     pipelineTriggers([
-    //         [$class: 'GenericTrigger',
-    //         genericVariables: [
-    //             // [key: 'pr_id', value: '$.pull_request.id'],
-    //             // [key: 'pr_state', value: '$.pull_request.state'],
-    //             // [key: 'pr_title', value: '$.pull_request.title'],
-    //             // [key: 'pr_from_ref', value: '$.pull_request.head.ref'],
-    //             // [key: 'pr_from_sha', value: '$.pull_request.head.sha'],
-    //             // [key: 'pr_from_git_url', value: '$.pull_request.head.repo.git_url'],
-    //             // [key: 'pr_to_ref', value: '$.pull_request.base.ref'],
-    //             // [key: 'pr_to_sha', value: '$.pull_request.base.sha'],
-    //             // [key: 'pr_to_git_url', value: '$.pull_request.base.repo.git_url'],
-    //             // [key: 'repo_git_url', value: '$.repository.git_url'],
-    //         ]            
-    //         ]
-    //     ])
-    // ])
-
     stages {
         stage('TEST PIPELINE') {
-            // environment {
-            //     JSONGIT = readJSON text: $repository
-            // }
-            // echo payload
             steps {
-                // sh 'echo ${payload}'
                 sh "echo $action"
-                sh "echo $git_url"
-                sh "echo $pr_sha"
-                // script {
-                //     def JSONGIT = readJSON text: $repository
-                //     echo JSONGIT
-                // }
-                // sh "echo ${JSONGIT}"
-                // echo $action
-                // script {
-                        // JSON_PAYLOAD.each { key, value ->
-                        // echo "$key , $value"
-                    // }
-                // }
+                sh "echo $pr_id"
+                sh "echo $pr_state"
+                sh "echo $pr_title"
+                sh "echo $pr_from_ref"
+                sh "echo $pr_from_sha"
+                sh "echo $pr_from_git_url"
+                sh "echo $pr_to_ref"
+                sh "echo $pr_to_git_url"
+                sh "echo $pr_to_sha"
+                sh "echo $repo_git_url"
             }
         }
     }
