@@ -1,7 +1,5 @@
-name: Deploy to prod
+name: GitHub Trigger Jenkins in AWS private Network Example
 
-# on:
-#   workflow_dispatch:
 on:
   pull_request:
     branches:
@@ -42,11 +40,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
 
-    - name: JENKINS AUTH TOKEN
-      run: |
-        echo "JENKINS_AUTH_TOKEN=$(curl -v -H "Accept: application/json" -X GET http://ec2-18-231-108-196.sa-east-1.compute.amazonaws.com:8080/crumbIssuer/api/json --user GitHub:113f86edf432597ac960eb895401c248dc | jq '.crumb')" >> $GITHUB_ENV
-
-    - name: WEB HOOK REQUEST
+    - name: Jenkins Trigger Request
       run: |
         curl -v \
           --data action=${{ env.GITHUB_EVENT_ACTION }} \
