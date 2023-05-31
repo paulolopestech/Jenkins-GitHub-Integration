@@ -18,8 +18,8 @@ jobs:
 
     - name: Setting environment variables..
       run: |
-        echo "AWS_DEFAULT_REGION=sa-east-1" >> $GITHUB_ENV
-        echo "AWS_SG_NAME=CICD" >> $GITHUB_ENV
+        echo "AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION }}" >> $GITHUB_ENV
+        echo "AWS_SG_NAME=${{ secrets.AWS_SG_NAME }}" >> $GITHUB_ENV
         echo "GITHUB_EVENT_ACTION=${{ github.event.action }}" >> $GITHUB_ENV
         echo "GITHUB_EVENT__PR_ID=${{ github.event.pull_request.id }}" >> $GITHUB_ENV
         echo "GITHUB_EVENT__PR_STATE=${{ github.event.pull_request.state }}" >> $GITHUB_ENV
@@ -34,7 +34,7 @@ jobs:
         
     - name: Add Github Actions IP to Security group
       run: |
-        aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol all --port all --cidr ${{ env.GITHUB_ACTIONS_IP }}/32    
+        aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol ${{ secrets.AWS_PROTOCOL }} --port ${{ secrets.AWS_PORT }} --cidr ${{ env.GITHUB_ACTIONS_IP }}/32    
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -54,11 +54,11 @@ jobs:
           --data pr_to_git_url=${{ env.GITHUB_EVENT__PR__TO_GIT_URL }} \
           --data pr_to_sha=${{ env.GITHUB_EVENT__PR__TO_SHA }} \
           --data repo_git_url=${{ env.GITHUB_EVENT_REPOSITORY_URL }} \
-          -X POST http://ec2-18-231-108-196.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/build --user GitHub:113f86edf432597ac960eb895401c248dc
+          -X POST http://${{ secrets.JENKINS_URL }}/job/CICDTeste/build --user GitHub:113f86edf432597ac960eb895401c248dc
 
     - name: Remove Github Actions IP from security group
       run: |
-        aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol all --port all --cidr ${{ env.GITHUB_ACTIONS_IP }}/32
+        aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol ${{ secrets.AWS_PROTOCOL }} --port ${{ secrets.AWS_PORT }} --cidr ${{ env.GITHUB_ACTIONS_IP }}/32
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
