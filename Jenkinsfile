@@ -22,7 +22,7 @@ pipeline {
     stages {
         stage('TEST PIPELINE') {
             steps {
-                echo pipeline
+                sh "echo pipeline"
                 // sh "echo $action"
                 // sh "echo $pr_id"
                 // sh "echo $pr_state"
