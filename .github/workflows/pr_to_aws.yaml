@@ -45,7 +45,7 @@ jobs:
         echo ${{env.JENKINS_AUTH_TOKEN}}
     - name: WEB HOOK REQUEST
       run: |
-        curl -v -H "Content-Type: application/json" \
+        curl -v \
           --data action=${{ env.GITHUB_EVENT_ACTION }} \
           --data pr_id=${{ env.GITHUB_EVENT__PR_ID }} \
           --data pr_state=${{ env.GITHUB_EVENT__PR_STATE }} \
