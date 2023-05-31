@@ -41,7 +41,7 @@ jobs:
 
     - name: WEB HOOK REQUEST
       run: |
-        curl -v -H "Content-Type: application/json" -H "token: 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" \
+        curl -v -H "Content-Type: application/json" -H \
           -d "{ \
             "action": ${{ env.GITHUB_EVENT_ACTION }}, \
             "pr_id": ${{ env.GITHUB_EVENT__PR_ID }}, \
@@ -54,7 +54,7 @@ jobs:
             "pr_to_git_url": ${{ env.GITHUB_EVENT__PR__TO_GIT_URL }}, \
             "pr_to_sha": ${{ env.GITHUB_EVENT__PR__TO_SHA }}, \
             "repo_git_url": ${{ env.GITHUB_EVENT_REPOSITORY_URL }}}" \
-          -X POST http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/build?token=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
+          -X POST http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/buildWithParameters --user GitHub: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
     
     - name: SHOW ENV
       run: |
