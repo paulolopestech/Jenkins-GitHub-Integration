@@ -49,8 +49,8 @@ jobs:
 
     - name: WEB HOOK REQUEST
       run: |
-        curl -v -H "Jenkins-Crumb: ${{env.JENKINS_AUTH_TOKEN}}" \
-          -X POST http://ec2-18-231-108-196.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/buildWithParameters --user GitHub:113f86edf432597ac960eb895401c248dc
+        curl -v \
+          -X POST http://ec2-18-231-108-196.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/build --user GitHub:113f86edf432597ac960eb895401c248dc
 
     - name: SHOW ENV
       run: |
