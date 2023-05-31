@@ -61,7 +61,7 @@ jobs:
           --data pr_to_git_url=${{ env.GITHUB_EVENT__PR__TO_GIT_URL }} \
           --data pr_to_sha=${{ env.GITHUB_EVENT__PR__TO_SHA }} \
           --data repo_git_url=${{ env.GITHUB_EVENT_REPOSITORY_URL }} \
-          -X POST http://ec2-18-231-108-196.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/buildWithParameters --user paulo:paulo2023
+          -X POST http://ec2-18-231-108-196.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/buildWithParameters --user GitHub:113f86edf432597ac960eb895401c248dc
 
     - name: SHOW ENV
       run: |
