@@ -66,3 +66,18 @@ void setBuildStatus(String message, String state) {
 // GenericWebhook Trigger
 // GitHub PlugIn
 // githubtoken 113f86edf432597ac960eb895401c248dc
+
+
+        //   --data action=${{ env.GITHUB_EVENT_ACTION }} \
+        //   --data pr_id=${{ env.GITHUB_EVENT__PR_ID }} \
+        //   --data pr_state=${{ env.GITHUB_EVENT__PR_STATE }} \
+        //   --data pr_title=${{ env.GITHUB_EVENT__PR_TITLE }} \
+        //   --data pr_from_ref=${{ env.GITHUB_EVENT__PR_REF }} \
+        //   --data pr_from_sha=${{ env.GITHUB_EVENT_PR_SHA }} \
+        //   --data pr_from_git_url=${{ env.GITHUB_EVENT__PR__FROM_GIT_URL }} \
+        //   --data pr_to_ref=${{ env.GITHUB_EVENT__PR__TO_REF }} \
+        //   --data pr_to_git_url=${{ env.GITHUB_EVENT__PR__TO_GIT_URL }} \
+        //   --data pr_to_sha=${{ env.GITHUB_EVENT__PR__TO_SHA }} \
+        //   --data repo_git_url=${{ env.GITHUB_EVENT_REPOSITORY_URL }} \
+        //   -X POST http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/buildWithParameters --user GitHub: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
+    
