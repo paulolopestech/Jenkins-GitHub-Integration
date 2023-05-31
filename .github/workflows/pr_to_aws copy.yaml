@@ -39,31 +39,23 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
 
-    - name: JENKINS AUTH TOKEN
-      run: |
-        echo "JENKINS_AUTH_TOKEN=$(curl -v -X GET http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/crumbIssuer/api/json --user GitHub:113f86edf432597ac960eb895401c248dc)" >> $GITHUB_ENV
-        echo ${{env.JENKINS_AUTH_TOKEN}}
-
-    - name: SHOW JENKINS AUTH TOKEN
-      run: |
-        echo ${{env.JENKINS_AUTH_TOKEN}}
-
     - name: WEB HOOK REQUEST
       run: |
-        curl -v \
-          --data action=${{ env.GITHUB_EVENT_ACTION }} \
-          --data pr_id=${{ env.GITHUB_EVENT__PR_ID }} \
-          --data pr_state=${{ env.GITHUB_EVENT__PR_STATE }} \
-          --data pr_title=${{ env.GITHUB_EVENT__PR_TITLE }} \
-          --data pr_from_ref=${{ env.GITHUB_EVENT__PR_REF }} \
-          --data pr_from_sha=${{ env.GITHUB_EVENT_PR_SHA }} \
-          --data pr_from_git_url=${{ env.GITHUB_EVENT__PR__FROM_GIT_URL }} \
-          --data pr_to_ref=${{ env.GITHUB_EVENT__PR__TO_REF }} \
-          --data pr_to_git_url=${{ env.GITHUB_EVENT__PR__TO_GIT_URL }} \
-          --data pr_to_sha=${{ env.GITHUB_EVENT__PR__TO_SHA }} \
-          --data repo_git_url=${{ env.GITHUB_EVENT_REPOSITORY_URL }} \
-          -X POST http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/buildWithParameters --user GitHub:113f86edf432597ac960eb895401c248dc
-
+        curl -v -H "Content-Type: application/json" -H "token: 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" \
+          -d "{ \
+            "action": ${{ env.GITHUB_EVENT_ACTION }}, \
+            "pr_id": ${{ env.GITHUB_EVENT__PR_ID }}, \
+            "pr_state": ${{ env.GITHUB_EVENT__PR_STATE }}, \
+            "pr_title": ${{ env.GITHUB_EVENT__PR_TITLE }}, \
+            "pr_from_ref": ${{ env.GITHUB_EVENT__PR_REF }}, \
+            "pr_from_sha": ${{ env.GITHUB_EVENT_PR_SHA }}, \
+            "pr_from_git_url": ${{ env.GITHUB_EVENT__PR__FROM_GIT_URL }}, \
+            "pr_to_ref": ${{ env.GITHUB_EVENT__PR__TO_REF }}, \
+            "pr_to_git_url": ${{ env.GITHUB_EVENT__PR__TO_GIT_URL }}, \
+            "pr_to_sha": ${{ env.GITHUB_EVENT__PR__TO_SHA }}, \
+            "repo_git_url": ${{ env.GITHUB_EVENT_REPOSITORY_URL }}}" \
+          -X POST http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/generic-webhook-trigger/invoke 2>&1
+    
     - name: SHOW ENV
       run: |
         echo ${{env.GITHUB_EVENT_ACTION}}

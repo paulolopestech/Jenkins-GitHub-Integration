@@ -1,0 +1,83 @@
+name: Deploy to prod
+
+# on:
+#   workflow_dispatch:
+on:
+  pull_request:
+   types: [opened, synchronize]
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: 🔎 Set GitHub Actions IP to GITHUB_ENV
+      run: echo "GITHUB_ACTIONS_IP=$(curl https://api.ipify.org)" >> $GITHUB_ENV
+    
+    - name: PRINT ECHO GIP
+      run: echo "${{ env.GITHUB_ACTIONS_IP }}"
+
+    - name: Setting environment variables..
+      run: |
+        echo "AWS_DEFAULT_REGION=sa-east-1" >> $GITHUB_ENV
+        echo "AWS_SG_NAME=CICD" >> $GITHUB_ENV
+        echo "GITHUB_EVENT_ACTION=${{ github.event.action }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_ID=${{ github.event.pull_request.id }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_STATE=${{ github.event.pull_request.state }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_REF=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT_PR_SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__FROM_GIT_URL=${{ github.event.pull_request.head.repo.git_url }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__TO_REF=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__TO_SHA=${{ github.event.pull_request.base.sha }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__TO_GIT_URL=${{ github.event.pull_request.base.repo.git_url }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT_REPOSITORY_URL=${{ github.event.repository.git_url }}" >> $GITHUB_ENV
+        
+    - name: Add Github Actions IP to Security group
+      run: |
+        aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol all --port all --cidr ${{ env.GITHUB_ACTIONS_IP }}/32    
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+
+    - name: JENKINS AUTH TOKEN
+      run: |
+        echo "JENKINS_AUTH_TOKEN=$(curl -v -H "Accept: application/json" -X GET http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/crumbIssuer/api/json --user GitHub:113f86edf432597ac960eb895401c248dc)" >> $GITHUB_ENV
+
+    - name: SHOW JENKINS AUTH TOKEN
+      run: |
+        echo ${{env.JENKINS_AUTH_TOKEN}}
+
+    - name: WEB HOOK REQUEST
+      run: |
+        curl -v \
+          --data action=${{ env.GITHUB_EVENT_ACTION }} \
+          --data pr_id=${{ env.GITHUB_EVENT__PR_ID }} \
+          --data pr_state=${{ env.GITHUB_EVENT__PR_STATE }} \
+          --data pr_title=${{ env.GITHUB_EVENT__PR_TITLE }} \
+          --data pr_from_ref=${{ env.GITHUB_EVENT__PR_REF }} \
+          --data pr_from_sha=${{ env.GITHUB_EVENT_PR_SHA }} \
+          --data pr_from_git_url=${{ env.GITHUB_EVENT__PR__FROM_GIT_URL }} \
+          --data pr_to_ref=${{ env.GITHUB_EVENT__PR__TO_REF }} \
+          --data pr_to_git_url=${{ env.GITHUB_EVENT__PR__TO_GIT_URL }} \
+          --data pr_to_sha=${{ env.GITHUB_EVENT__PR__TO_SHA }} \
+          --data repo_git_url=${{ env.GITHUB_EVENT_REPOSITORY_URL }} \
+          -X POST http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/buildWithParameters --user GitHub:113f86edf432597ac960eb895401c248dc
+
+    - name: SHOW ENV
+      run: |
+        echo ${{env.GITHUB_EVENT_ACTION}}
+        echo ${{env.GITHUB_EVENT_PULL_REQUEST}}
+        echo ${{env.GITHUB_EVENT_PR_SHA}}
+        echo ${{ github.event.pull_request }}
+        echo ${{ github.event.pull_request.id }}
+        echo ${{env.GITHUB_EVENT_REPOSITORY}}
+        echo ${{env.GITHUB_EVENT_REPOSITORY_URL}}
+
+    - name: Remove Github Actions IP from security group
+      run: |
+        aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol all --port all --cidr ${{ env.GITHUB_ACTIONS_IP }}/32
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+      if: always()
