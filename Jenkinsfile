@@ -59,12 +59,12 @@ void setBuildStatus(String message, String state) {
     ]);
 }
 
-// just to commit inf + inf + inf + inf ++ +++ ++
+// just to commit inf + inf + inf + inf ++ +++
 // curl "https://api.github.com/repos/[organization name]/[repo name]/statuses/[commit id]?access_token=[GitHub access token]" -H "Content-Type: application/json"   -X POST -d "{\"state\": \"success\", \"description\": \"Build Successful \", \"target_url\": \"[jenkins job url]\", \"context\": \"[Job name]\" }"
 
 
 // GenericWebhook Trigger 
-// GitHub PlugIn 
+// GitHub PlugIn
 // githubtoken 113f86edf432597ac960eb895401c248dc
 
 
