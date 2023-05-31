@@ -42,7 +42,7 @@ jobs:
     - name: JENKINS AUTH TOKEN
       run: |
         echo "JENKINS_AUTH_TOKEN=$(curl -v -X GET http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/crumbIssuer/api/json --user GitHub:113f86edf432597ac960eb895401c248dc)" >> $GITHUB_ENV
-
+        echo ${{env.JENKINS_AUTH_TOKEN}}
     - name: WEB HOOK REQUEST
       run: |
         curl -v -H "Content-Type: application/json" \
