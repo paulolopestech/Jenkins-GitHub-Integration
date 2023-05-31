@@ -54,7 +54,7 @@ jobs:
           --data pr_to_git_url=${{ env.GITHUB_EVENT__PR__TO_GIT_URL }} \
           --data pr_to_sha=${{ env.GITHUB_EVENT__PR__TO_SHA }} \
           --data repo_git_url=${{ env.GITHUB_EVENT_REPOSITORY_URL }} \
-          -X POST http://${{ secrets.JENKINS_URL }}/job/CICDTeste/build --user GitHub:113f86edf432597ac960eb895401c248dc
+          -X POST http://${{ secrets.JENKINS_URL }}/job/${{ secrets.JENKINS_JOB }}/build --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_USER_TOKEN }}
 
     - name: Remove Github Actions IP from security group
       run: |
