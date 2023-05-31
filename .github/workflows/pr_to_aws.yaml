@@ -41,7 +41,7 @@ jobs:
 
     - name: WEB HOOK REQUEST
       run: |
-        curl -v -H "Content-Type: application/json" -H "token: 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" \
+        curl -v -H "Content-Type: application/json" -H \
           -d "{ \
             "action": ${{ env.GITHUB_EVENT_ACTION }}, \
             "pr_id": ${{ env.GITHUB_EVENT__PR_ID }}, \
