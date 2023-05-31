@@ -41,7 +41,7 @@ jobs:
 
     - name: JENKINS AUTH TOKEN
       run: |
-        echo "JENKINS_AUTH_TOKEN=$(curl -v -H "Accept: application/json" -X GET http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/crumbIssuer/api/json --user GitHub:113f86edf432597ac960eb895401c248dc)" >> $GITHUB_ENV
+        echo "JENKINS_AUTH_TOKEN=$(curl -v -H "Accept: application/json" -X GET http://ec2-18-231-108-196.sa-east-1.compute.amazonaws.com:8080/crumbIssuer/api/json --user GitHub:113f86edf432597ac960eb895401c248dc)" >> $GITHUB_ENV
 
     - name: SHOW JENKINS AUTH TOKEN
       run: |
@@ -61,7 +61,7 @@ jobs:
           --data pr_to_git_url=${{ env.GITHUB_EVENT__PR__TO_GIT_URL }} \
           --data pr_to_sha=${{ env.GITHUB_EVENT__PR__TO_SHA }} \
           --data repo_git_url=${{ env.GITHUB_EVENT_REPOSITORY_URL }} \
-          -X POST http://ec2-52-67-42-6.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/buildWithParameters --user GitHub:113f86edf432597ac960eb895401c248dc
+          -X POST http://ec2-18-231-108-196.sa-east-1.compute.amazonaws.com:8080/job/CICDTeste/buildWithParameters --user GitHub:113f86edf432597ac960eb895401c248dc
 
     - name: SHOW ENV
       run: |
