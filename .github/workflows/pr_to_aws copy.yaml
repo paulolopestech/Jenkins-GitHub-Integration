@@ -45,7 +45,7 @@ jobs:
 
     - name: SHOW JENKINS AUTH TOKEN
       run: |
-        echo ${{env.JENKINS_AUTH_TOKEN}}
+        echo ${{env.JENKINS_AUTH_TOKEN.crumb}}
 
     - name: WEB HOOK REQUEST
       run: |
