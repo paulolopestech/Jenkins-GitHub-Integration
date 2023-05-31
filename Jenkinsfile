@@ -1,38 +1,39 @@
 pipeline {
     agent any
 
-    triggers {
-        GenericTrigger(
-            genericVariables: [
-                [key: 'action', value: '$.action', expressionType: 'JSONPath'],
-                [key: 'pr_id', value: '$.pr_id', expressionType: 'JSONPath'],
-                [key: 'pr_state', value: '$.pr_state', expressionType: 'JSONPath'],
-                [key: 'pr_title', value: '$.pr_title', expressionType: 'JSONPath'],
-                [key: 'pr_from_ref', value: '$.pr_from_ref', expressionType: 'JSONPath'],
-                [key: 'pr_from_sha', value: '$.pr_from_sha', expressionType: 'JSONPath'],
-                [key: 'pr_from_git_url', value: '$.pr_from_git_url', expressionType: 'JSONPath'],
-                [key: 'pr_to_ref', value: '$.pr_to_ref', expressionType: 'JSONPath'],
-                [key: 'pr_to_git_url', value: '$.pr_to_git_url', expressionType: 'JSONPath'],
-                [key: 'pr_to_sha', value: '$.pr_to_sha', expressionType: 'JSONPath'],
-                [key: 'repo_git_url', value: '$.repo_git_url', expressionType: 'JSONPath'],
-            ],
-        )
-    }
+    // triggers {
+    //     GenericTrigger(
+    //         genericVariables: [
+    //             [key: 'action', value: '$.action', expressionType: 'JSONPath'],
+    //             [key: 'pr_id', value: '$.pr_id', expressionType: 'JSONPath'],
+    //             [key: 'pr_state', value: '$.pr_state', expressionType: 'JSONPath'],
+    //             [key: 'pr_title', value: '$.pr_title', expressionType: 'JSONPath'],
+    //             [key: 'pr_from_ref', value: '$.pr_from_ref', expressionType: 'JSONPath'],
+    //             [key: 'pr_from_sha', value: '$.pr_from_sha', expressionType: 'JSONPath'],
+    //             [key: 'pr_from_git_url', value: '$.pr_from_git_url', expressionType: 'JSONPath'],
+    //             [key: 'pr_to_ref', value: '$.pr_to_ref', expressionType: 'JSONPath'],
+    //             [key: 'pr_to_git_url', value: '$.pr_to_git_url', expressionType: 'JSONPath'],
+    //             [key: 'pr_to_sha', value: '$.pr_to_sha', expressionType: 'JSONPath'],
+    //             [key: 'repo_git_url', value: '$.repo_git_url', expressionType: 'JSONPath'],
+    //         ],
+    //     )
+    // }
 
     stages {
         stage('TEST PIPELINE') {
             steps {
-                sh "echo $action"
-                sh "echo $pr_id"
-                sh "echo $pr_state"
-                sh "echo $pr_title"
-                sh "echo $pr_from_ref"
-                sh "echo $pr_from_sha"
-                sh "echo $pr_from_git_url"
-                sh "echo $pr_to_ref"
-                sh "echo $pr_to_git_url"
-                sh "echo $pr_to_sha"
-                sh "echo $repo_git_url"
+                echo pipeline
+                // sh "echo $action"
+                // sh "echo $pr_id"
+                // sh "echo $pr_state"
+                // sh "echo $pr_title"
+                // sh "echo $pr_from_ref"
+                // sh "echo $pr_from_sha"
+                // sh "echo $pr_from_git_url"
+                // sh "echo $pr_to_ref"
+                // sh "echo $pr_to_git_url"
+                // sh "echo $pr_to_sha"
+                // sh "echo $repo_git_url"
             }
         }
     }
