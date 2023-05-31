@@ -49,7 +49,7 @@ jobs:
 
     - name: WEB HOOK REQUEST
       run: |
-        curl -v \
+        curl -v -H "Jenkins-Crumb: ${{env.JENKINS_AUTH_TOKEN.crumb}}" \
           --data action=${{ env.GITHUB_EVENT_ACTION }} \
           --data pr_id=${{ env.GITHUB_EVENT__PR_ID }} \
           --data pr_state=${{ env.GITHUB_EVENT__PR_STATE }} \
