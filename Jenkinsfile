@@ -1,22 +1,10 @@
-// properties([pipelineTriggers([gitHubPush()])])
-
-// node {
-//     git url: '', branch: 'main'
-//     step([$class: 'GitHubCommitStatusSetter', contextSource: [$class: 'ManualyEnteredCommitContextSource', context: 'pipeline update'], statusResultSource: [$class: 'ConditionalStatusResultSource', results: [[$class: 'AnyBuildResult', message:'Building Pipeline Job', state: 'SUCCESS']]]])
-// }
-
-// void initialize() {
-//     echo 'Initializing PipelineSteps.'
-// }
-
-// initialize()
-
 pipeline {
     agent any
+
     stages {
-        stage('Stage') {
+        stage('TEST PIPELINE') {
             steps {
-                echo 'Pipeline'
+                sh "echo your pipeline step"
             }
         }
     }
@@ -35,9 +23,9 @@ pipeline {
 void setBuildStatus(String message, String state) {
     step([
         $class: "GitHubCommitStatusSetter",
-        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/paulolopestech/CI-CD"],
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
         errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
         statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]]]
     ]);
 }
+
