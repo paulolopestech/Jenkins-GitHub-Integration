@@ -1,4 +1,4 @@
-name: GitHub Trigger Jenkins in AWS private Network Example
+name: GitHub Trigger Jenkins in AWS private Network with AWS IAM
 
 on:
   pull_request:
