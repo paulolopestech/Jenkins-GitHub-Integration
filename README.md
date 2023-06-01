@@ -10,12 +10,6 @@
 
 <br />
 
-![GitHub repo size](https://img.shields.io/github/repo-size/paulolopestech/Jenkins-GitHub-Integration?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/paulolopestech/Jenkins-GitHub-Integration?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/paulolopestech/Jenkins-GitHub-Integration?style=for-the-badge)
-
-<br />
-
 ## Resumo
 
 > Este repositório contém um workflow para integração dinâmica entre o GitHub e o Jenkins, com opções de acesso a redes privadas configurando o acesso dinâmicamente através de um IAM na AWS ou um arquivo de VPN, permitindo que o GitHub dispare triggers para pipelines no Jenkins. Conta também com uma função no Jenkinsfile para atualização do status de pull request no GitHub
