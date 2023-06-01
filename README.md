@@ -10,9 +10,9 @@
 
 <br />
 
-![GitHub repo size](https://img.shields.io/github/repo-size/paulolopestech/CI-CD?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/paulolopestech/CI-CD?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/iuricode/CI-CD?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/paulolopestech/Jenkins-GitHub-Integration?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/paulolopestech/Jenkins-GitHub-Integration?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/paulolopestech/Jenkins-GitHub-Integration?style=for-the-badge)
 
 <br />
 
