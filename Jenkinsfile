@@ -29,4 +29,3 @@ void setBuildStatus(String message, String state) {
     ]);
 }
 
-// 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
