@@ -1,0 +1,71 @@
+name: GitHub Trigger Jenkins in private Network with VPN
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: actions checkout
+      uses: actions/checkout@v2.3.4
+
+    - name: Install OpenVPN
+      run: |
+          sudo apt-get update
+          sudo apt-get --assume-yes --no-install-recommends install openvpn 
+
+    - name: Setup VPN config
+      run: |
+          echo "${{ secrets.CA_CRT }}" > ca.crt
+          echo "${{ secrets.USER_CRT }}" > user.crt
+          echo "${{ secrets.USER_KEY }}" > user.key
+          echo "${{ secrets.TLS_KEY }}" > tls.key
+
+    - name: Connect VPN
+      run: |
+          sudo openvpn --config "./.github/vpn/config.ovpn" &
+
+    - name: Wait for a VPN connection
+      timeout-minutes: 1
+      run: until ping -c1 ${{ secrets.SERVER_ADRESS}}; do sleep 2; done
+    
+    - name: Setting environment variables..
+      run: |
+        echo "GITHUB_EVENT_ACTION=${{ github.event.action }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_ID=${{ github.event.pull_request.id }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_STATE=${{ github.event.pull_request.state }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR_REF=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT_PR_SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__FROM_GIT_URL=${{ github.event.pull_request.head.repo.git_url }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__TO_REF=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__TO_SHA=${{ github.event.pull_request.base.sha }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT__PR__TO_GIT_URL=${{ github.event.pull_request.base.repo.git_url }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT_REPOSITORY_URL=${{ github.event.repository.git_url }}" >> $GITHUB_ENV
+
+    - name: Jenkins Trigger Request
+      run: |
+        curl -v \
+          --data action=${{ env.GITHUB_EVENT_ACTION }} \
+          --data pr_id=${{ env.GITHUB_EVENT__PR_ID }} \
+          --data pr_state=${{ env.GITHUB_EVENT__PR_STATE }} \
+          --data pr_title=${{ env.GITHUB_EVENT__PR_TITLE }} \
+          --data pr_from_ref=${{ env.GITHUB_EVENT__PR_REF }} \
+          --data pr_from_sha=${{ env.GITHUB_EVENT_PR_SHA }} \
+          --data pr_from_git_url=${{ env.GITHUB_EVENT__PR__FROM_GIT_URL }} \
+          --data pr_to_ref=${{ env.GITHUB_EVENT__PR__TO_REF }} \
+          --data pr_to_git_url=${{ env.GITHUB_EVENT__PR__TO_GIT_URL }} \
+          --data pr_to_sha=${{ env.GITHUB_EVENT__PR__TO_SHA }} \
+          --data repo_git_url=${{ env.GITHUB_EVENT_REPOSITORY_URL }} \
+          -X POST http://${{ secrets.JENKINS_URL }}/job/${{ secrets.JENKINS_JOB }}/build --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_USER_TOKEN }}
+
+    - name: Kill VPN connection
+      if: always()
+      run: |
+          sudo killall openvpn      
+
+
